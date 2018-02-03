@@ -1,2 +1,8 @@
 language: c
-script: make && make clean
+sudo: false
+script:
+  - clang -coverage -O0 main.c -o stress_client
+  - ./stress_client
+  - gcov main.c
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
